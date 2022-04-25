@@ -69,4 +69,4 @@ export function create(value,key='',option={}){
  * test
  * @type {String}
  */
-create('test',undefined,{modelName:'local'});
+// create('test',undefined,{modelName:'local'});
