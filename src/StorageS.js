@@ -1,17 +1,23 @@
 /*jshint esversion: 6 */
-import {getModels} from "./common/Tools";
+import {allModel} from "./common/Tools";
 import BaseData from "./common/BaseData";
 
 /**
  * 创建一个实例
- * @param  {String} key    存储键
  * @param  {[type]} value  初始值
+ * @param  {String} key    存储键
  * @param  {Object} option 配置
+ * option部分参数
+ * model：自定义存储模式
+ * modelName：存储模式名
+ * realTime：实时性的
  */
 export function create(value,key='',option={}){
     if(!key) throw `key不能为空`;
-    let {modelName} = option;
-    let model = getModels()[modelName];
+    let {model,modelName,realTime=false} = option;
+    if(!model){  //优先使用自定义的mode
+        model = allModel[modelName];
+    }
     if(!model) throw `没有 ${modelName} 此模式。已有模式local,session,uni,wx`;
     let dataOrigin = new BaseData( //源数据
         key,
@@ -31,7 +37,7 @@ export function create(value,key='',option={}){
     let data = {
         value:dataOrigin.value,
         [stateKey]:'active',
-        save(){  //强制保存
+        save(){  //强制保存(基本不会用到)
             checkState();
             dataOrigin.setData();
         },
@@ -60,7 +66,12 @@ export function create(value,key='',option={}){
         },
         get(){
             checkState();
-            return dataOrigin.value;
+            if(realTime){  //是实时性的话每次访问就刷新一次，性能不是很好
+                dataOrigin.value = dataOrigin.getData();
+                return dataOrigin.value;
+            }else{
+                return dataOrigin.value;
+            }
         },
     });
     return data;
@@ -69,4 +80,4 @@ export function create(value,key='',option={}){
  * test
  * @type {String}
  */
-// create('test',undefined,{modelName:'local'});
+// create(undefined,'test',{modelName:'local'});

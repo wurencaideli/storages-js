@@ -1,4 +1,4 @@
-> **storages-js 0.0.1**
+> **storages-js 0.0.2**
 
 ## 介绍
 

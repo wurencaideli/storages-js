@@ -1,6 +1,6 @@
 {
   "name": "storages-js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "一个好用的前端存储工具",
   "main": "index.js",
   "scripts": {

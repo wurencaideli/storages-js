@@ -16,7 +16,7 @@ export default class BaseData {
         let data = {
             value:value,
             type:typeof value,
-            name:'StorageS-container',
+            name:'storages-js',
         };
         model.set(key,JSON.stringify(data));
         return data.value;
@@ -28,6 +28,7 @@ export default class BaseData {
     getData(){  
         const {key,model} = this;
         const data = JSON.parse(model.get(key));
+        if(!data) throw '找不到数据';
         return data.value;
     }
 }
