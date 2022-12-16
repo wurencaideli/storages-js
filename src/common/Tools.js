@@ -1,5 +1,3 @@
-/*jshint esversion: 6 */
-/* eslint-disable */
 /**
  * 模式列表
  */
